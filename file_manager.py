@@ -17,8 +17,9 @@ class FileManager:
     def upload_image(root, canvas, img_processing_manager):
         root.option_add('*foreground', 'black')
         root.option_add('*activeForeground', 'black')
-        root.filename = filedialog.askopenfilename(title = "Seleccionar un Archivo", filetypes = (('Imagen PNG', '.png'), ('Imagen JPG', '.jpg'), ('Todos los archivos', '*')), initialdir=".")
-        print (root.filename)
+        root.filename = filedialog.askopenfilename(title="Seleccionar un Archivo", filetypes=(
+        ('Imagen PNG', '.png'), ('Imagen JPG', '.jpg'), ('Todos los archivos', '*')), initialdir=".")
+        print(root.filename)
 
         if img_processing_manager.has_changes():
             if not FileManager.are_you_sure_open_new_file():
@@ -28,7 +29,7 @@ class FileManager:
         canvas.delete('all')
         img_processing_manager.add_image(root.filename)
         image = img_processing_manager.last_image()
-        image =  ImageTk.PhotoImage(image=Image.fromarray(image))
+        image = ImageTk.PhotoImage(image=Image.fromarray(image))
         canvas.add_image(image)
         root.mainloop()
 
@@ -48,5 +49,7 @@ class FileManager:
 
     @classmethod
     def are_you_sure_open_new_file(cls):
-        message_box = tk.messagebox.askquestion ('Abrir nueva imagen', '¿Estas seguro de que quieres abrir este archivo? Se perderan tus cambios anteriores si abres este archivo.', icon = 'warning')
+        message_box = tk.messagebox.askquestion('Abrir nueva imagen',
+                                                '¿Estas seguro de que quieres abrir este archivo? Se perderan tus cambios anteriores si abres este archivo.',
+                                                icon='warning')
         return message_box == 'yes'
