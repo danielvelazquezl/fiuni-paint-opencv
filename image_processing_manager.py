@@ -2,7 +2,15 @@ import numpy as np
 import cv2
 
 
-class ImageProcessingManager():
+def rgb_to_hex(rgb):
+    """
+    Conversor de un string hexadecimal a arreglos.
+    Fuente: https://www.codespeedy.com/convert-rgb-to-hex-color-code-in-python/
+    """
+    return '%02x%02x%02x' % rgb
+
+
+class ImageProcessingManager:
     """
     Esta libreria contiene la implementación de los procesos internos del
     Editor de Imagenes.
@@ -23,13 +31,6 @@ class ImageProcessingManager():
 
         # Estructura de puntos/lineas
         self.stack_lines = []
-
-    def rgb_to_hex(self, rgb):
-        """
-        Conversor de un string hexadecimal a arreglos.
-        Fuente: https://www.codespeedy.com/convert-rgb-to-hex-color-code-in-python/
-        """
-        return '%02x%02x%02x' % rgb
 
     def last_image(self):
         """
@@ -61,10 +62,11 @@ class ImageProcessingManager():
         Leemos una imagen con OpenCV
         Redimensionamos segun los parametros: DEFAULT_WIDTH y DEFAULT_HEIGHT
         Agregamos una nueva imagen redimensionada en la pila.
-
-        Obs: No te olvides de vaciar las colecciones antes de cargar la imagen.
         """
-        pass
+        self.stack_images = []
+        img = cv2.imread(image_path, cv2.IMREAD_COLOR)
+        img_resize = cv2.resize(img, (self.DEFAULT_WIDTH, self.DEFAULT_HEIGHT))
+        self.stack_images.append(img_resize)
 
     def save_image(self, filename):
         """

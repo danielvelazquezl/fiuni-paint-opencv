@@ -27,7 +27,7 @@ class MenuBar(tk.Menu):
         filemenu.add_command(label="Guardar", command=self.save_image)
         filemenu.add_command(label="Cerrar")
         filemenu.add_separator()
-        filemenu.add_command(label="Salir", command=self.quit)
+        filemenu.add_command(label="Salir", command=self.quit())
         editmenu = tk.Menu(self, tearoff=0)
         editmenu.add_command(label="Deshacer")
         helpmenu = tk.Menu(self, tearoff=0)

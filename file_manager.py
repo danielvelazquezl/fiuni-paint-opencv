@@ -18,8 +18,8 @@ class FileManager:
         root.option_add('*foreground', 'black')
         root.option_add('*activeForeground', 'black')
         root.filename = filedialog.askopenfilename(title="Seleccionar un Archivo", filetypes=(
-        ('Imagen PNG', '.png'), ('Imagen JPG', '.jpg'), ('Todos los archivos', '*')), initialdir=".")
-        print(root.filename)
+            ('Imagen PNG', '.png'), ('Imagen JPG', '.jpg'), ('Todos los archivos', '*')), initialdir=".")
+        print('FILE: ' + root.filename)
 
         if img_processing_manager.has_changes():
             if not FileManager.are_you_sure_open_new_file():
