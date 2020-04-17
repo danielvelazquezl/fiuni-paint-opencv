@@ -113,7 +113,7 @@ class ImageProcessingManager:
         Retornamos la imagen procesada.
         """
         last = self.last_image().copy()
-        bnw = cv2.cvtColor(last, cv2.COLOR_BGR2RGB)
+        bnw = cv2.cvtColor(last, cv2.COLOR_BGR2GRAY)
         self.stack_images.append(bnw)
         return bnw
 
