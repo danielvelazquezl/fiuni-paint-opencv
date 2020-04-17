@@ -171,5 +171,6 @@ class ImageProcessingManager:
         https://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html#convertscaleabs
         """
         last = self.last_image().copy()
-        # TU IMPLEMENTACION AQUI
-        return last
+        img = cv2.convertScaleAbs(last, alpha, beta)
+        self.stack_images.append(img)
+        return img
