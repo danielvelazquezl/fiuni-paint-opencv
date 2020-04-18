@@ -66,7 +66,7 @@ class ImageProcessingManager:
         Agregamos una nueva imagen redimensionada en la pila.
         """
         self.stack_images.clear()
-        img_resize = cv2.resize(cv2.imread(image_path, 0), (self.DEFAULT_WIDTH, self.DEFAULT_HEIGHT))
+        img_resize = cv2.resize(cv2.imread(image_path), (self.DEFAULT_WIDTH, self.DEFAULT_HEIGHT))
         self.stack_images.append(img_resize)
 
     def save_image(self, filename):
@@ -137,9 +137,11 @@ class ImageProcessingManager:
         Retornamos la imagen procesada.
         """
         last = self.last_image().copy()
-        eq = cv2.equalizeHist(last)
-        self.stack_images.append(eq)
-        return eq
+        img_yuv = cv2.cvtColor(last, cv2.COLOR_BGR2YUV)
+        img_yuv[:, :, 0] = cv2.equalizeHist(img_yuv[:, :, 0])
+        img_out = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+        self.stack_images.append(img_out)
+        return img_out
 
     def CLAHE_equalization_image(self, grid=(8, 8), clip_limit=2.0):
         """
@@ -149,10 +151,12 @@ class ImageProcessingManager:
         Retornamos la imagen procesada.
         """
         last = self.last_image().copy()
+        img_yuv = cv2.cvtColor(last, cv2.COLOR_BGR2YUV)
         clahe = cv2.createCLAHE(clip_limit, grid)
-        clahe_image = clahe.apply(last)
-        self.stack_images.append(clahe_image)
-        return clahe_image
+        img_yuv[:, :, 0] = clahe.apply(img_yuv[:, :, 0])
+        img_out = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+        self.stack_images.append(img_out)
+        return img_out
 
     def contrast_and_brightness_processing_image(self, alpha, beta):
         """
